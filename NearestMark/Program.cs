@@ -1,38 +1,43 @@
 ﻿using NearestMark.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+
 namespace NearestMark
 {
     class Program
     {
-        private static string _filePath;
+        private static List<Coordinate> loadCoordinatesFromFile(string fileName)
+        {
+            // read the file
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
+            var allText = File.ReadAllText(filePath);
+
+            // parse into coordinates
+            var rawCoordinates = allText.Replace(")(", "|");
+            rawCoordinates = rawCoordinates.Replace("(", "");
+            rawCoordinates = rawCoordinates.Replace(")", "");
+            var coordinates = new List<Coordinate>();
+            foreach (var rawCoordinate in rawCoordinates.Split(new char[] { '|' }))
+            {
+                coordinates.Add(new Coordinate(rawCoordinate));
+            }
+            return coordinates;
+        }
 
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Near and Far!");
             Console.WriteLine();
-            _filePath = AppDomain.CurrentDomain.BaseDirectory + "fileThatContainsPoints.txt";
+
+            var coordinatesFromFile = loadCoordinatesFromFile("2D.txt");
 
             var coordinate = new Coordinate();
             coordinate.Points.Add(1);
             coordinate.Points.Add(2);
-            coordinate.Points.Add(3);
-            coordinate.Points.Add(4);
 
-            var initialSet = new List<Coordinate>();
-            for (var i = 0; i < 5; i++)
-            {
-                var c = new Coordinate();
-
-                c.Points.Add(new Random().Next(1) * -1);
-                c.Points.Add(new Random().Next(10));
-                c.Points.Add(new Random().Next(100) * -1);
-                c.Points.Add(new Random().Next(1000));
-
-                initialSet.Add(c);
-            }
-
-            var nearestCoordinate = NearestMark.Core.Distance.GetNearestCoordinate(coordinate, initialSet);
+            var nearestCoordinate = NearestMark.Core.Distance.GetNearestCoordinate(coordinate, coordinatesFromFile);
 
             Console.WriteLine("Your coordinate is: {0}", coordinate.ToString());
             Console.WriteLine("Nearest coordinate is: {0}", nearestCoordinate.ToString());

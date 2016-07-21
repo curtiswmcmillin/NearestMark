@@ -11,7 +11,7 @@ namespace NearestMark.Core
     {
         public static Coordinate GetNearestCoordinate(Coordinate coordinate, List<Coordinate> allCoordinates)
         {
-            // get/store distance from coord for each coordinate in the allCoordinates
+            // get/store distance from coord for each coordinate in allCoordinates
             foreach (var c in allCoordinates)
             {
                 c.Distance = Math.Sqrt(coordinate.Points.Zip(c.Points, (a, b) => (a - b) * (a - b)).Sum());
