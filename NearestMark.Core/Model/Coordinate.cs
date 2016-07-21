@@ -13,7 +13,7 @@ namespace NearestMark.Core.Model
 
         public Coordinate() { }
         public Coordinate(string points)
-        {            
+        {
             foreach (var p in points.Split(new char[] { ',' }))
             {
                 _points.Add(double.Parse(p));
@@ -43,7 +43,7 @@ namespace NearestMark.Core.Model
 
         public override string ToString()
         {
-            return string.Format("({0})", String.Join(",", Points.ToArray()));            
+            return string.Format("({0})", String.Join(",", Points.ToArray()));
         }
     }
 }

@@ -20,15 +20,15 @@ namespace NearestMark
             coordinate.Points.Add(4);
 
             var initialSet = new List<Coordinate>();
-            for(var i = 0; i<5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 var c = new Coordinate();
 
-                c.Points.Add(new Random().Next(1)*-1);
+                c.Points.Add(new Random().Next(1) * -1);
                 c.Points.Add(new Random().Next(10));
                 c.Points.Add(new Random().Next(100) * -1);
                 c.Points.Add(new Random().Next(1000));
-                
+
                 initialSet.Add(c);
             }
 

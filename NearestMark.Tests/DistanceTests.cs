@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NearestMark.Core.Model;
 using System.Collections.Generic;
 
@@ -8,10 +7,11 @@ namespace NearestMark.Core.Tests
     [TestClass]
     public class DistanceTests
     {
-        
+
         /// <summary>
         /// Given the initial input set: (1.0,1.4)(10.344,0) 
-        /// followed by an input of 0,0 the program should return that 1.0,1.4 is the closest point.
+        /// followed by an input of 0,0 
+        /// the program should return that 1.0,1.4 is the closest point.
         /// </summary>
         [TestMethod()]
         public void Test_InputSet_2D()
@@ -38,7 +38,8 @@ namespace NearestMark.Core.Tests
 
         /// <summary>
         /// Given the initial input set: (1,1,1)(10,0,0)(2,2,2) 
-        /// followed by an input of 0,0,0 the program should return that 1,1,1 is the closest point.
+        /// followed by an input of 0,0,0 
+        /// the program should return that 1,1,1 is the closest point.
         /// </summary>
         [TestMethod()]
         public void Test_InputSet_3D()
