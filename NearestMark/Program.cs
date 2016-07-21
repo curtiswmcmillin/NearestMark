@@ -14,19 +14,27 @@ namespace NearestMark
             Console.WriteLine();
             _filePath = AppDomain.CurrentDomain.BaseDirectory + "fileThatContainsPoints.txt";
 
-            var initialSet = new List<Coordinate>();
-
             var coordinate = new Coordinate();
             coordinate.Points.Add(1);
             coordinate.Points.Add(1);
             coordinate.Points.Add(1);
-            coordinate.Points.Add(1);
-            coordinate.Points.Add(1);
-            coordinate.Points.Add(1);
+            
+            var initialSet = new List<Coordinate>();
+            for(var i = 0; i<5; i++)
+            {
+                var c = new Coordinate();
+
+                c.Points.Add(i);
+                c.Points.Add(i);
+                c.Points.Add(i);
+
+                initialSet.Add(c);
+            }
 
             var nearestCoordinate = NearestMark.Core.Distance.GetNearestCoordinate(coordinate, initialSet);
 
             Console.WriteLine("Nearest coordinate is: {0}", nearestCoordinate.ToString());
+            Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
             Console.Read();
 
             // Solve problem

@@ -8,7 +8,35 @@ namespace NearestMark.Core.Model
 {
     public class Coordinate
     {
+        private double _distance;
         private List<long> _points = new List<long>();
+
+        public double Distance
+        {
+            get
+            {
+                return Distance1;
+            }
+
+            set
+            {
+                Distance1 = value;
+            }
+        }
+
+        public double Distance1
+        {
+            get
+            {
+                return _distance;
+            }
+
+            set
+            {
+                _distance = value;
+            }
+        }
+
         public List<long> Points
         {
             get
