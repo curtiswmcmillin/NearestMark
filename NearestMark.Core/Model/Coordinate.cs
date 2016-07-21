@@ -15,19 +15,6 @@ namespace NearestMark.Core.Model
         {
             get
             {
-                return Distance1;
-            }
-
-            set
-            {
-                Distance1 = value;
-            }
-        }
-
-        public double Distance1
-        {
-            get
-            {
                 return _distance;
             }
 
