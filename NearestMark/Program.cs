@@ -24,10 +24,10 @@ namespace NearestMark
             {
                 var c = new Coordinate();
 
-                c.Points.Add(new Random(i).Next(1));
-                c.Points.Add(new Random(i).Next(10));
-                c.Points.Add(new Random(i).Next(100));
-                c.Points.Add(new Random(i).Next(1000));
+                c.Points.Add(new Random().Next(1)*-1);
+                c.Points.Add(new Random().Next(10));
+                c.Points.Add(new Random().Next(100) * -1);
+                c.Points.Add(new Random().Next(1000));
                 
                 initialSet.Add(c);
             }

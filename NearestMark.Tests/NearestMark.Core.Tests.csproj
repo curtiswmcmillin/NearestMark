@@ -53,6 +53,18 @@
     <Compile Include="DistanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NearestMark.Core\NearestMark.Core.csproj">
+      <Project>{AE1046F8-02AF-4711-8DA9-27A8214B6AF1}</Project>
+      <Name>NearestMark.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="2D.txt" />
+    <Content Include="2DTest.txt" />
+    <Content Include="3D.txt" />
+    <Content Include="3DTest.txt" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

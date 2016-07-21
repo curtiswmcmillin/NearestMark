@@ -9,7 +9,16 @@ namespace NearestMark.Core.Model
     public class Coordinate
     {
         private double _distance;
-        private List<long> _points = new List<long>();
+        private List<double> _points = new List<double>();
+
+        public Coordinate() { }
+        public Coordinate(string points)
+        {            
+            foreach (var p in points.Split(new char[] { ',' }))
+            {
+                _points.Add(double.Parse(p));
+            }
+        }
 
         public double Distance
         {
@@ -24,13 +33,14 @@ namespace NearestMark.Core.Model
             }
         }
 
-        public List<long> Points
+        public List<double> Points
         {
             get
             {
                 return _points;
             }
         }
+
         public override string ToString()
         {
             return string.Format("({0})", String.Join(",", Points.ToArray()));            

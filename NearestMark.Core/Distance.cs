@@ -17,7 +17,7 @@ namespace NearestMark.Core
                 c.Distance = Math.Sqrt(coordinate.Points.Zip(c.Points, (a, b) => (a - b) * (a - b)).Sum());
             }
 
-            // find smallest Distance in allCoordinates by sorting ASC and taking the first element
+            // find shortest Distance in allCoordinates by sorting ASC and taking the first element
             return allCoordinates.OrderBy(c => c.Distance).ToList()[0];
         }        
     }

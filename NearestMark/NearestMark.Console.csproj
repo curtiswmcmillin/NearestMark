@@ -49,12 +49,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="2D.txt" />
-    <Content Include="2DTest.txt" />
-    <Content Include="3D.txt" />
-    <Content Include="3DTest.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NearestMark.Core\NearestMark.Core.csproj">
       <Project>{ae1046f8-02af-4711-8da9-27a8214b6af1}</Project>
       <Name>NearestMark.Core</Name>
