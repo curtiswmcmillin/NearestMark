@@ -1,7 +1,5 @@
-﻿using NearestMark.Core;
-using NearestMark.Core.Model;
+﻿using NearestMark.Core.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace NearestMark
@@ -17,23 +15,11 @@ namespace NearestMark
             var filePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
             if (File.Exists(filePath))
             {
-                var allText = File.ReadAllText(filePath);
-
-                // parse into coordinates
-                var rawCoordinates = allText.Replace(")(", "|");
-                rawCoordinates = rawCoordinates.Replace("(", "");
-                rawCoordinates = rawCoordinates.Replace(")", "");
-                var coordinates = new Coordinates();
-                foreach (var rawCoordinate in rawCoordinates.Split(new char[] { '|' }))
-                {
-                    coordinates.Add(new Coordinate(rawCoordinate));
-                }
-
-                return coordinates;
+                return new Coordinates(File.ReadAllText(filePath));
             }
             else
             {
-                Console.WriteLine("Please ensure a file exists at " + fileName);
+                Console.WriteLine("Please confirm that this file exists: " + filePath);
                 return null;
             }
         }
@@ -50,7 +36,13 @@ namespace NearestMark
         private static Coordinates processCoordinatesFile(string coordinatesFileName, string coordinatesInputFileName)
         {
             var coordinatesFromFile = loadCoordinatesFromFile(coordinatesFileName);
+            if (coordinatesFromFile == null)
+                return null;
+
             var inputCoordinates = loadCoordinatesFromFile(coordinatesInputFileName);
+            if (inputCoordinates == null)
+                return null;
+
             foreach (var inputCoordinate in inputCoordinates)
             {
                 var nearestCoordinate = coordinatesFromFile.GetNearestCoordinate(inputCoordinate);
@@ -69,7 +61,7 @@ namespace NearestMark
             {
                 while (true)
                 {
-                    Console.WriteLine("Please enter a 2D or 3D coordinate (comma-separated numbers) press <ENTER>.");
+                    Console.WriteLine("Please enter a 2D or 3D coordinate (comma-separated numbers) and press <ENTER>.");
 
                     var userInput = Console.ReadLine();
                     Coordinate inputCoordinate = new Coordinate(userInput);
@@ -90,7 +82,7 @@ namespace NearestMark
                 Console.WriteLine();
                 processUserInput();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 Console.WriteLine();
@@ -102,14 +94,24 @@ namespace NearestMark
         {
             Console.WriteLine("Welcome to Near and Far!");
             Console.WriteLine();
-            Console.WriteLine("Press a key to begin processing 2D and 3D points(in 2D.txt and 3D.txt)");
+            Console.WriteLine("Press a key to begin processing 2D and 3D points(in 2D.txt and 3D.txt).");
+            Console.WriteLine();
             Console.ReadKey();
 
             coordinatesFromFile2D = processCoordinatesFile("2D.txt", "2DTest.txt");
 
             coordinatesFromFile3D = processCoordinatesFile("3D.txt", "3DTest.txt");
 
-            processUserInput();
+            if (coordinatesFromFile2D != null && coordinatesFromFile3D != null)
+            {
+                processUserInput();
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please confirm that 2D and 3D points(in 2D.txt and 3D.txt) are located in program folder.");
+                Console.ReadKey();
+            }
         }
     }
 }

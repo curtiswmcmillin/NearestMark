@@ -55,10 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\2D.txt" />
-    <Content Include="bin\Debug\2DTest.txt" />
-    <Content Include="bin\Debug\3D.txt" />
-    <Content Include="bin\Debug\3DTest.txt" />
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

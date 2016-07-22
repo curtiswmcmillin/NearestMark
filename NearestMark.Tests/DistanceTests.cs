@@ -7,6 +7,27 @@ namespace NearestMark.Core.Tests
     [TestClass]
     public class DistanceTests
     {
+        [TestMethod()]
+        public void Test_InputSet_1D()
+        {
+            // arrange
+            var default1DCoordinate = new Coordinate();
+            default1DCoordinate.Points.Add(110);
+
+            // create the initial set of 2D coordinates
+            var initialSet = new Coordinates();
+            var c1 = new Coordinate("1.0,1.4");
+            var c2 = new Coordinate("10.344,0");
+            initialSet.Add(c1);
+            initialSet.Add(c2);
+
+            // act
+            var nearest = initialSet.GetNearestCoordinate(default1DCoordinate);
+
+            // assert
+            Assert.AreEqual(nearest, c2);
+        }
+
         /// <summary>
         /// Given the initial input set: (1.0,1.4)(10.344,0) 
         /// followed by an input of 0,0 
@@ -26,6 +47,7 @@ namespace NearestMark.Core.Tests
             var c2 = new Coordinate("10.344,0");
             initialSet.Add(c1);
             initialSet.Add(c2);
+
             // act
             var nearest = initialSet.GetNearestCoordinate(default2DCoordinate);
 
