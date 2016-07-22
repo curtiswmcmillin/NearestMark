@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NearestMark.Core.Model;
-using System.Collections.Generic;
 
 namespace NearestMark.Core.Tests
 {
@@ -16,8 +15,8 @@ namespace NearestMark.Core.Tests
 
             // create the initial set of 2D coordinates
             var initialSet = new Coordinates();
-            var c1 = new Coordinate("1.0,1.4");
-            var c2 = new Coordinate("10.344,0");
+            var c1 = new Coordinate("1.0");
+            var c2 = new Coordinate("10.344");
             initialSet.Add(c1);
             initialSet.Add(c2);
 

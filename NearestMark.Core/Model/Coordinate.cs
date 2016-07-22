@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 namespace NearestMark.Core.Model
 {
+    /// <summary>
+    /// Holds one or more Points and a Distance
+    /// </summary>
     public class Coordinate
     {
         private double _distance;
         private List<double> _points = new List<double>();
 
         public Coordinate() { }
-        internal void loadPoints(string[] points)
+
+        private void loadPoints(string[] points)
         {
             foreach (var p in points)
             {
@@ -24,14 +28,15 @@ namespace NearestMark.Core.Model
                 }
             }
         }
+
         public Coordinate(string[] points)
         {
             loadPoints(points);
         }
+
         public Coordinate(string points)
         {
             loadPoints(points.Split(new char[] { ',' }));
-            
         }
 
         public double Distance
@@ -40,7 +45,6 @@ namespace NearestMark.Core.Model
             {
                 return _distance;
             }
-
             set
             {
                 _distance = value;

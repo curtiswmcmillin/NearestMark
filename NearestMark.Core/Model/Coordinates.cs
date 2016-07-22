@@ -22,7 +22,7 @@ namespace NearestMark.Core.Model
 
         public Coordinates() { }
         /// <summary>
-        /// Parses the string of coordinates into Coordinate objects
+        /// Parses string and creates Coordinate objects (with Points)
         /// Expected format of string is '(12, 13)(-12.1, 13.5)'
         /// </summary>
         /// <param name="rawCoordinates"></param>
@@ -33,7 +33,9 @@ namespace NearestMark.Core.Model
             formattedCoordString = formattedCoordString.Replace("(", "");
             formattedCoordString = formattedCoordString.Replace(")", "");
 
-            foreach (var rawCoordinate in formattedCoordString.Split(new char[] { '|' }))
+            var formattedCoordinates = formattedCoordString.Split(new char[] { '|' });
+
+            foreach (var rawCoordinate in formattedCoordinates)
             {
                 this.Add(new Coordinate(rawCoordinate));
             }
