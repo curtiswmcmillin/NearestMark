@@ -87,8 +87,6 @@ namespace NearestMark
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Near and Far!");
-
             if (args.Length == 0)
             {
                 Console.WriteLine();
@@ -104,7 +102,7 @@ namespace NearestMark
 
                 Console.WriteLine();
 
-                Console.WriteLine(string.Format("Press a key to begin comparing test Coordinates found in {0} with those in {1}.", testFileName, inputFileName));
+                Console.WriteLine(string.Format("Press a key to begin comparing each Input Coordinate in {1} with all Test Coordinates in {0}.", testFileName, inputFileName));
                 Console.WriteLine();
                 Console.ReadKey();
 
