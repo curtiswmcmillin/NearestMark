@@ -1,4 +1,5 @@
 ﻿using NearestMark.Core.Model;
+using NearestMark.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace NearestMark
         private static List<Coordinate> loadCoordinatesFromFile(string fileName)
         {
             // read the file
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
+            var filePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
             var allText = File.ReadAllText(filePath);
 
             // parse into coordinates
@@ -23,42 +24,40 @@ namespace NearestMark
             {
                 coordinates.Add(new Coordinate(rawCoordinate));
             }
+
             return coordinates;
         }
-        
+
+        private static void processCoordinatesFile(string coordinatesFile, string coordinatesInputFile)
+        {
+            var coordinatesFromFile = loadCoordinatesFromFile(coordinatesFile);
+            var inputCoordinates = loadCoordinatesFromFile(coordinatesInputFile);
+            foreach (var inputCoordinate in inputCoordinates)
+            {
+                var nearestCoordinate = Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile);
+
+                Console.WriteLine("Input coordinate: {0}", inputCoordinate.ToString());
+                Console.WriteLine("Nearest coordinate to input coordinate: {0}", nearestCoordinate.ToString());
+                Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
+                Console.WriteLine();
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Near and Far!");
             Console.WriteLine();
 
-            var coordinatesFromFile2 = loadCoordinatesFromFile("2D.txt");
-            var inputCoordinates2 = loadCoordinatesFromFile("2DTest.txt");
-            foreach(var inputCoordinate in inputCoordinates2)
-            {
-                var nearestCoordinate = NearestMark.Core.Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile2);
-
-                Console.WriteLine("Your coordinate is: {0}", inputCoordinate.ToString());
-                Console.WriteLine("Nearest coordinate is: {0}", nearestCoordinate.ToString());
-                Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
-                Console.WriteLine();
-            }
+            processCoordinatesFile("2D.txt", "2DTest.txt");
+            processCoordinatesFile("3D.txt", "3DTest.txt");
 
             Console.Read();
 
-            var coordinatesFromFile3 = loadCoordinatesFromFile("3D.txt");
-            var inputCoordinates3 = loadCoordinatesFromFile("3DTest.txt");
-            foreach (var inputCoordinate in inputCoordinates3)
-            {
-                var nearestCoordinate = NearestMark.Core.Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile3);
-
-                Console.WriteLine("Your coordinate is: {0}", inputCoordinate.ToString());
-                Console.WriteLine("Nearest coordinate is: {0}", nearestCoordinate.ToString());
-                Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
-                Console.WriteLine();
-            }
-
-            Console.Read();
-
+            Console.WriteLine("Please enter a 2D or 3D coordinate and then press <ENTER>");
+            var userInput = Console.ReadLine();
+            Console.WriteLine(userInput);
         }
+
+        
     }
 }
