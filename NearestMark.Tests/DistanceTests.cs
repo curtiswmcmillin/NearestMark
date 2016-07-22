@@ -21,15 +21,13 @@ namespace NearestMark.Core.Tests
             default2DCoordinate.Points.Add(0);
 
             // create the initial set of 2D coordinates
-            var initialSet = new List<Coordinate>();
+            var initialSet = new Coordinates();
             var c1 = new Coordinate("1.0,1.4");
             var c2 = new Coordinate("10.344,0");
-
             initialSet.Add(c1);
             initialSet.Add(c2);
-
             // act
-            var nearest = Distance.GetNearestCoordinate(default2DCoordinate, initialSet);
+            var nearest = initialSet.GetNearestCoordinate(default2DCoordinate);
 
             // assert
             Assert.AreEqual(nearest, c1);
@@ -50,7 +48,7 @@ namespace NearestMark.Core.Tests
             default3DCoordinate.Points.Add(0);
 
             // create the initial set of 2D coordinates
-            var initialSet = new List<Coordinate>();
+            var initialSet = new Coordinates();
             var c3 = new Coordinate("1,1,1");
             var c2 = new Coordinate("10,0,0");
             var c1 = new Coordinate("2,2,2");
@@ -60,7 +58,7 @@ namespace NearestMark.Core.Tests
             initialSet.Add(c3);
 
             // act
-            var nearest = Distance.GetNearestCoordinate(default3DCoordinate, initialSet);
+            var nearest = initialSet.GetNearestCoordinate(default3DCoordinate);
 
             // assert
             Assert.AreEqual(nearest, c3);

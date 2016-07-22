@@ -18,7 +18,12 @@ namespace NearestMark.Core
             return coordinates;
         }
 
-        private static void validateParms(Coordinate coordinate, List<Coordinate> allCoordinates)
+        /// <summary>
+        /// Validates input and throws ApplicationExceptions when invalid.
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <param name="allCoordinates"></param>
+        private static void validateInputParms(Coordinate coordinate, List<Coordinate> allCoordinates)
         {
             if (allCoordinates == null)
             {
@@ -30,13 +35,24 @@ namespace NearestMark.Core
             }
             if (allCoordinates.Count == 0)
             {
-                throw new ArgumentException("No coordinates in allCoordinates parm");
+                throw new ArgumentException("No coordinates", "allCoordinates");
+            }
+            if(coordinate.Points == null || coordinate.Points.Count == 0)
+            {
+                throw new ArgumentException("No points", "allCoordinates");
             }
         }
 
+        /// <summary>
+        /// Using Euclidean distance, this calculates point separation (http://en.wikipedia.org/wiki/Euclidean_distance)
+        /// between the Coordinate and allCoordinates, returning the point farthest from the set.
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <param name="allCoordinates"></param>
+        /// <returns></returns>
         public static Coordinate GetNearestCoordinate(Coordinate coordinate, List<Coordinate> allCoordinates)
         {
-            validateParms(coordinate, allCoordinates);
+            validateInputParms(coordinate, allCoordinates);
 
             allCoordinates = calcDistances(coordinate, allCoordinates);
 
@@ -44,9 +60,16 @@ namespace NearestMark.Core
             return allCoordinates.OrderBy(c => c.Distance).ToList()[0];
         }
 
+        /// <summary>
+        /// Using Euclidean distance, this calculates point separation (http://en.wikipedia.org/wiki/Euclidean_distance)
+        /// between the Coordinate and allCoordinates, returning the point farthest from the set.
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <param name="allCoordinates"></param>
+        /// <returns></returns>
         public static Coordinate GetFarthestCoordinate(Coordinate coordinate, List<Coordinate> allCoordinates)
         {
-            validateParms(coordinate, allCoordinates);
+            validateInputParms(coordinate, allCoordinates);
 
             allCoordinates = calcDistances(coordinate, allCoordinates);
             
