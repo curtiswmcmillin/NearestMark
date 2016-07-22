@@ -9,6 +9,9 @@ namespace NearestMark
 {
     class Program
     {
+        private static List<Coordinate> coordinatesFromFile2D = null;
+        private static List<Coordinate> coordinatesFromFile3D = null;
+
         private static List<Coordinate> loadCoordinatesFromFile(string fileName)
         {
             // read the file
@@ -28,7 +31,15 @@ namespace NearestMark
             return coordinates;
         }
 
-        private static void processCoordinatesFile(string coordinatesFile, string coordinatesInputFile)
+        private static void displayResults(Coordinate inputCoordinate, Coordinate nearestCoordinate)
+        {
+
+            Console.WriteLine("Input coordinate: {0}", inputCoordinate.ToString());
+            Console.WriteLine("Nearest coordinate to input coordinate: {0}", nearestCoordinate.ToString());
+            Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
+        }
+
+        private static List<Coordinate> processCoordinatesFile(string coordinatesFile, string coordinatesInputFile)
         {
             var coordinatesFromFile = loadCoordinatesFromFile(coordinatesFile);
             var inputCoordinates = loadCoordinatesFromFile(coordinatesInputFile);
@@ -36,9 +47,29 @@ namespace NearestMark
             {
                 var nearestCoordinate = Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile);
 
-                Console.WriteLine("Input coordinate: {0}", inputCoordinate.ToString());
-                Console.WriteLine("Nearest coordinate to input coordinate: {0}", nearestCoordinate.ToString());
-                Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
+                displayResults(inputCoordinate, nearestCoordinate);
+
+                Console.WriteLine();
+            }
+            return coordinatesFromFile;
+        }
+
+        private static void processUserInput()
+        {
+            while (true)
+            {
+                Console.WriteLine("Please enter a 2D or 3D coordinate and then press <ENTER>");
+                var userInput = Console.ReadLine();
+                Coordinate inputCoordinate = new Coordinate(userInput);
+                if (inputCoordinate.Points.Count == 2)
+                {
+                    displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile2D));
+                }
+                else if (inputCoordinate.Points.Count == 3)
+                {
+                    displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile3D));
+                }
+                Console.WriteLine(userInput);
                 Console.WriteLine();
             }
         }
@@ -48,16 +79,11 @@ namespace NearestMark
             Console.WriteLine("Welcome to Near and Far!");
             Console.WriteLine();
 
-            processCoordinatesFile("2D.txt", "2DTest.txt");
-            processCoordinatesFile("3D.txt", "3DTest.txt");
+            coordinatesFromFile2D = processCoordinatesFile("2D.txt", "2DTest.txt");
 
-            Console.Read();
+            coordinatesFromFile3D = processCoordinatesFile("3D.txt", "3DTest.txt");
 
-            Console.WriteLine("Please enter a 2D or 3D coordinate and then press <ENTER>");
-            var userInput = Console.ReadLine();
-            Console.WriteLine(userInput);
+            processUserInput();
         }
-
-        
     }
 }
