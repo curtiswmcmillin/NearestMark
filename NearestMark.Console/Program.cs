@@ -1,8 +1,7 @@
-﻿using NearestMark.Core.Model;
-using NearestMark.Core;
+﻿using NearestMark.Core;
+using NearestMark.Core.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace NearestMark
@@ -16,24 +15,31 @@ namespace NearestMark
         {
             // read the file
             var filePath = AppDomain.CurrentDomain.BaseDirectory + fileName;
-            var allText = File.ReadAllText(filePath);
-
-            // parse into coordinates
-            var rawCoordinates = allText.Replace(")(", "|");
-            rawCoordinates = rawCoordinates.Replace("(", "");
-            rawCoordinates = rawCoordinates.Replace(")", "");
-            var coordinates = new List<Coordinate>();
-            foreach (var rawCoordinate in rawCoordinates.Split(new char[] { '|' }))
+            if (File.Exists(filePath))
             {
-                coordinates.Add(new Coordinate(rawCoordinate));
-            }
+                var allText = File.ReadAllText(filePath);
 
-            return coordinates;
+                // parse into coordinates
+                var rawCoordinates = allText.Replace(")(", "|");
+                rawCoordinates = rawCoordinates.Replace("(", "");
+                rawCoordinates = rawCoordinates.Replace(")", "");
+                var coordinates = new List<Coordinate>();
+                foreach (var rawCoordinate in rawCoordinates.Split(new char[] { '|' }))
+                {
+                    coordinates.Add(new Coordinate(rawCoordinate));
+                }
+
+                return coordinates;
+            }
+            else
+            {
+                Console.WriteLine("Please ensure a file exists at " + fileName);
+                return null;
+            }
         }
 
         private static void displayResults(Coordinate inputCoordinate, Coordinate nearestCoordinate)
         {
-
             Console.WriteLine("Input coordinate: {0}", inputCoordinate.ToString());
             Console.WriteLine("Nearest coordinate to input coordinate: {0}", nearestCoordinate.ToString());
             Console.WriteLine("The distance is: {0}", nearestCoordinate.Distance.ToString());
@@ -56,21 +62,30 @@ namespace NearestMark
 
         private static void processUserInput()
         {
-            while (true)
+            try
             {
-                Console.WriteLine("Please enter a 2D or 3D coordinate and then press <ENTER>");
-                var userInput = Console.ReadLine();
-                Coordinate inputCoordinate = new Coordinate(userInput);
-                if (inputCoordinate.Points.Count == 2)
+                while (true)
                 {
-                    displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile2D));
+                    Console.WriteLine("Please enter a 2D or 3D coordinate and then press <ENTER>");
+
+                    var userInput = Console.ReadLine();
+                    Coordinate inputCoordinate = new Coordinate(userInput);
+                    if (inputCoordinate.Points.Count == 2)
+                    {
+                        displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile2D));
+                    }
+                    else if (inputCoordinate.Points.Count == 3)
+                    {
+                        displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile3D));
+                    }
+                    Console.WriteLine();
                 }
-                else if (inputCoordinate.Points.Count == 3)
-                {
-                    displayResults(inputCoordinate, Distance.GetNearestCoordinate(inputCoordinate, coordinatesFromFile3D));
-                }
-                Console.WriteLine(userInput);
+            }
+            catch (ApplicationException ex)
+            {
+                Console.WriteLine(ex);
                 Console.WriteLine();
+                processUserInput();
             }
         }
 

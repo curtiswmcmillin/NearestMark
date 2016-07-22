@@ -7,7 +7,6 @@ namespace NearestMark.Core.Tests
     [TestClass]
     public class DistanceTests
     {
-
         /// <summary>
         /// Given the initial input set: (1.0,1.4)(10.344,0) 
         /// followed by an input of 0,0 

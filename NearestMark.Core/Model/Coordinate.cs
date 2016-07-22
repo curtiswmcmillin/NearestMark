@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NearestMark.Core.Model
 {
@@ -16,7 +13,15 @@ namespace NearestMark.Core.Model
         {
             foreach (var p in points.Split(new char[] { ',' }))
             {
-                _points.Add(double.Parse(p));
+                double result;
+                if (double.TryParse(p, out result))
+                {
+                    _points.Add(result);
+                }
+                else
+                {
+                    throw new ApplicationException(string.Format("Unable to parse the point '{0}'.  Points must be numbers.", p));
+                }
             }
         }
 
