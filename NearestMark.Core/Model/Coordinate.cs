@@ -9,9 +9,9 @@ namespace NearestMark.Core.Model
         private List<double> _points = new List<double>();
 
         public Coordinate() { }
-        public Coordinate(string points)
+        internal void loadPoints(string[] points)
         {
-            foreach (var p in points.Split(new char[] { ',' }))
+            foreach (var p in points)
             {
                 double result;
                 if (double.TryParse(p, out result))
@@ -23,6 +23,15 @@ namespace NearestMark.Core.Model
                     throw new ApplicationException(string.Format("Unable to parse the point '{0}'.  Points must be numbers.", p));
                 }
             }
+        }
+        public Coordinate(string[] points)
+        {
+            loadPoints(points);
+        }
+        public Coordinate(string points)
+        {
+            loadPoints(points.Split(new char[] { ',' }));
+            
         }
 
         public double Distance
