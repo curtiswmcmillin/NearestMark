@@ -54,8 +54,12 @@
       <Name>NearestMark.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="bin\Debug\" />
+    <Content Include="bin\Debug\2DInput.txt" />
+    <Content Include="bin\Debug\2DTest.txt" />
+    <Content Include="bin\Debug\3DInput.txt" />
+    <Content Include="bin\Debug\3DTest.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

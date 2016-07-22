@@ -60,10 +60,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="2D.txt" />
     <Content Include="2DTest.txt" />
-    <Content Include="3D.txt" />
+    <Content Include="2DInput.txt" />
     <Content Include="3DTest.txt" />
+    <Content Include="3DInput.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
